@@ -5,8 +5,6 @@ __metaclass__ = type
 from ansible.plugins.callback import CallbackBase
 from memory_profiler import *
 
-import sys
-
 
 DOCUMENTATION = '''
     callback: memory_usage
@@ -45,7 +43,7 @@ class CallbackModule(CallbackBase):
     """
     CALLBACK_VERSION = 2.0
     CALLBACK_TYPE = 'aggregate'
-    CALLBACK_NAME = 'timer'
+    CALLBACK_NAME = 'memory_usage'
     CALLBACK_NEEDS_WHITELIST = True
 
     def __init__(self):
