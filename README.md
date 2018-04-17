@@ -29,7 +29,6 @@ callback_whitelist = memory_usage
 
 ```
 $ ansible-playbook -i inventory test.yml
-Using /Users/hsaito/work/tmp/playbook_test/ansible.cfg as config file
 Memory Usage: rss(46.4727)MiB vms(4237.7969)MiB pfaults(16557) pageins(0) @v2_playbook_on_start
 
 PLAY [all] ******************************************************************************************
