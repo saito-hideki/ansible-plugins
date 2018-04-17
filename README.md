@@ -12,7 +12,7 @@ This project provides various plugins for Ansible.
 
 #### Requirements
 
-- memory-profiler==0.52.0
+- psutil==5.4.5
 
 #### Installation
 
@@ -29,21 +29,22 @@ callback_whitelist = memory_usage
 
 ```
 $ ansible-playbook -i inventory test.yml
-MemoryUsage: 47.32812500 MiB @v2_playbook_on_start
+Using /Users/hsaito/work/tmp/playbook_test/ansible.cfg as config file
+Memory Usage: rss(46.4727)MiB vms(4237.7969)MiB pfaults(16557) pageins(0) @v2_playbook_on_start
 
-PLAY [all] *****************************************************************************************
+PLAY [all] ******************************************************************************************
 
-TASK [Gathering Facts] *****************************************************************************
-MemoryUsage: 48.62890625 MiB @v2_playbook_on_task_start
+TASK [Gathering Facts] ******************************************************************************
+Memory Usage: rss(47.8867)MiB vms(4242.8203)MiB pfaults(17095) pageins(0) @v2_playbook_on_task_start
 ok: [127.0.0.1]
 
-TASK [include_role] ********************************************************************************
-MemoryUsage: 49.28125000 MiB @v2_playbook_on_task_start
+TASK [include_role] *********************************************************************************
+Memory Usage: rss(48.2539)MiB vms(4243.0703)MiB pfaults(18763) pageins(0) @v2_playbook_on_task_start
 
-TASK [test : ping] *********************************************************************************
-MemoryUsage: 49.33203125 MiB @v2_playbook_on_task_start
-ok: [127.0.0.1]
+TASK [test : ping] **********************************************************************************
+Memory Usage: rss(48.3281)MiB vms(4243.0703)MiB pfaults(20443) pageins(0) @v2_playbook_on_task_start
+ok: [127.0.0.1] => {"changed": false, "failed": false, "ping": "pong"}
 
-PLAY RECAP *****************************************************************************************
+PLAY RECAP ******************************************************************************************
 127.0.0.1                  : ok=2    changed=0    unreachable=0    failed=0
 ```

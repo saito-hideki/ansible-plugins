@@ -3,8 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.callback import CallbackBase
-from memory_profiler import *
 
+import psutil as ps
 
 DOCUMENTATION = '''
     callback: memory_usage
@@ -17,21 +17,26 @@ DOCUMENTATION = '''
         - Ansible callback plugin for profiling memory usage
 '''
 
+def _convert_unit(usage):
+    mib = usage / 1024 / 1024
+    return mib
 
 def profiling(f=None):
     """
     Decorator that will run the function and print a line-by-line profile
     """
     def wrapper(*args, **kwargs):
-        prof = LineProfiler(backend='psutil')
-        val = prof(f)(*args, **kwargs)
+        proc = ps.Process()
+        val = f(*args, **kwargs)
         results = []
-        for _, lines in prof.code_map.items():
-            for _, mem_info in lines:
-                results.append(mem_info)
+        rss, vms, pfaults, pageins = proc.memory_info()
         print(
-            "MemoryUsage: {usage:.8f} MiB @{func}".format(
-            usage=results[0][0], func=f.__name__))
+            "Memory Usage: rss({rss:.4f})MiB vms({vms:.4f})MiB pfaults({pfaults:d}) pageins({pageins:d}) @{func} ".format(
+            rss=_convert_unit(rss),
+            vms=_convert_unit(vms),
+            pfaults=pfaults,
+            pageins=pageins,
+            func=f.__name__))
         return val
 
     return wrapper
