@@ -75,10 +75,6 @@ class CallbackModule(CallbackBase):
     def v2_playbook_on_handler_task_start(self, task):
         pass
 
-    @profiling
-    def v2_playbook_on_include(self, included_file):
-        pass
-
 #
 # [EOF]
 #
