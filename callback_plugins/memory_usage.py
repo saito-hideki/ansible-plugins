@@ -1,4 +1,8 @@
-# Make coding more python3-ish
+# -*- coding: utf-8 -*-
+# (c) 2018, Hideki Saito <saito@fgrep.org>
+# GNU General Public License v3.0+
+#  (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
@@ -10,16 +14,18 @@ DOCUMENTATION = '''
     callback: memory_usage
     callback_type: aggregate
     requirements:
-        - memory_profiler
+        - ps_utils
     short_description: Add memory usage to tasks and handlers
     version_added: "2.0"
     description:
         - Ansible callback plugin for profiling memory usage
 '''
 
+
 def _convert_unit(usage):
     mib = usage / 1024 / 1024
     return mib
+
 
 def profiling(f=None):
     """
@@ -31,12 +37,14 @@ def profiling(f=None):
         results = []
         rss, vms, pfaults, pageins = proc.memory_info()
         print(
-            "Memory Usage: rss({rss:.4f})MiB vms({vms:.4f})MiB pfaults({pfaults:d}) pageins({pageins:d}) @{func} ".format(
-            rss=_convert_unit(rss),
-            vms=_convert_unit(vms),
-            pfaults=pfaults,
-            pageins=pageins,
-            func=f.__name__))
+            "Memory Usage: rss({rss:.4f})MiB vms({vms:.4f})MiB "
+            "pfaults({pfaults:d}) pageins({pageins:d}) @{func}"
+            .format(
+                rss=_convert_unit(rss),
+                vms=_convert_unit(vms),
+                pfaults=pfaults,
+                pageins=pageins,
+                func=f.__name__))
         return val
 
     return wrapper
