@@ -15,10 +15,11 @@ DOCUMENTATION = '''
     callback_type: aggregate
     requirements:
         - ps_utils
-    short_description: Add memory usage to tasks and handlers
+    short_description: Show memory usage of tasks and handlers
     version_added: "2.0"
     description:
         - Ansible callback plugin for profiling memory usage
+        - This plugin shows memory usage and page-fault and page-in information
 '''
 
 
