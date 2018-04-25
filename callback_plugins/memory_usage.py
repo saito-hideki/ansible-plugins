@@ -14,18 +14,20 @@ DOCUMENTATION = '''
     callback: memory_usage
     callback_type: aggregate
     requirements:
+        - whitelist in configuration
         - ps_utils
     short_description: Show memory usage of tasks and handlers
-    version_added: "2.0"
+    version_added: "2.6"
     description:
-        - Ansible callback plugin for profiling memory usage
-        - This plugin shows memory usage and page-fault and page-in information
+        - This is an ansible callback plugin that profiling memory usage
+        - This plugin measures and displays simple memory usage information
+        - It is implemented as a decorator in task and handler execution
 '''
 
 
 def _convert_unit(usage):
     """
-    Specified unit(MiB)
+    Convert memory usage to MiB
     """
     mib = usage / 1024 / 1024
     return mib
