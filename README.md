@@ -12,7 +12,7 @@ This project provides various plugins for Ansible.
 
 #### Requirements
 
-- psutil==5.4.5
+- psutil>=5.4.5,<=5.4.7
 
 #### Installation
 
