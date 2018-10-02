@@ -8,7 +8,7 @@ __metaclass__ = type
 
 from ansible.plugins.callback import CallbackBase
 
-import psutil as ps
+import psutil
 
 DOCUMENTATION = '''
     callback: memory_usage
@@ -38,18 +38,14 @@ def profiling(f=None):
     Decorator that will run the function and print a line-by-line profile
     """
     def wrapper(*args, **kwargs):
-        proc = ps.Process()
+        proc = psutil.Process()
         val = f(*args, **kwargs)
         results = []
-        rss, vms, pfaults, pageins = proc.memory_info()
+        pmeminfo = proc.memory_info()
         print(
-            "Memory Usage: rss({rss:.4f})MiB vms({vms:.4f})MiB "
-            "pfaults({pfaults:d}) pageins({pageins:d}) @{func}"
-            .format(
-                rss=_convert_unit(rss),
-                vms=_convert_unit(vms),
-                pfaults=pfaults,
-                pageins=pageins,
+            "Memory Usage: rss({rss:.4f})MiB vms({vms:.4f})MiB @{func}".format(
+                rss=_convert_unit(pmeminfo.rss),
+                vms=_convert_unit(pmeminfo.vms),
                 func=f.__name__))
         return val
 
